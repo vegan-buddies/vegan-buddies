@@ -1,4 +1,4 @@
- ![icon](./img/icon.png) Vegan buddies
+ ![icon](./web/static/images/favicon.png) Vegan buddies
 -------------
 
 A comunity for new vegans and those who want to guide them to success.
