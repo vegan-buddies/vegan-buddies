@@ -1,9 +1,11 @@
-Vegan buddies
+ ![icon](./img/icon.png) Vegan buddies
 -------------
 
 A comunity for new vegans and those who want to guide them to success.
 
-![screencast](https://assets.gradesta.com/screencasts/vegan-buddies-screencast-28-1-2022.gif)
+Follow our weekly progress on [veganbuddies.org](https://veganbuddies.org)!
+
+![screencast](./img/vegan-buddies-screencast.gif)
 
 Credits
 -------
