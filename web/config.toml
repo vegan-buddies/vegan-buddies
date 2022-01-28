@@ -33,17 +33,12 @@ url = "https://petben.cz/"
 weight = 3
 
 
-
-
-
-
-
 [params]
 blogPageURL = "blog"
 contactLink = "https://github.com/vegan-buddies/vegan-buddies"
 copyright = "All right reserved copyright © Otevři Oči 2022"
 footerLogo = "https://otevrioci.cz/wp-content/themes/otevrioci/images/oo-logo.png"
-logo = "https://raw.githubusercontent.com/vegan-buddies/vegan-buddies/default/img/icon.png"
+logo = "images/favicon.png"
 
 # Social icons
 [[params.social]]
