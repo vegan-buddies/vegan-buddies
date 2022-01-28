@@ -1,0 +1,16 @@
+---
+enable: true
+topTitle: Testimonials
+title: >
+  ## What People Say About the Project?
+
+testimonial:
+  - name: Tereza Vandrovcová
+    comment: Well at least you started!
+    time: Jan 27, 2022
+    star: 5
+  - name: Timothy Hobbs
+    comment: I hope I finish this before I die
+    time: Jan 28, 2022
+    star: 4
+

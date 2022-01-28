@@ -1,0 +1,56 @@
+baseURL = "http://veganbuddies.org/"
+languageCode = "en-us"
+paginate = 6
+theme = "portio"
+title = "VeganBuddies - app"
+# Main Menu
+[[menu.main]]
+name = "Home"
+url = "#home"
+weight = 1
+[[menu.main]]
+name = "About"
+url = "#about"
+weight = 2
+[[menu.main]]
+name = "Blog"
+url = "#blog"
+weight = 3
+
+[[menu.sponsors]]
+name = "Otevři Oči"
+url = "https://otevrioci.cz/"
+weight = 1
+
+[[menu.sponsors]]
+name = "Gradesta"
+url = "https://gradesta.com/"
+weight = 2
+
+[[menu.sponsors]]
+name = "Petr Beneš"
+url = "https://petben.cz/"
+weight = 3
+
+
+
+
+
+
+
+[params]
+blogPageURL = "blog"
+contactLink = "https://github.com/vegan-buddies/vegan-buddies"
+copyright = "All right reserved copyright © Otevři Oči 2022"
+footerLogo = "https://otevrioci.cz/wp-content/themes/otevrioci/images/oo-logo.png"
+logo = "https://raw.githubusercontent.com/vegan-buddies/vegan-buddies/default/img/icon.png"
+
+# Social icons
+[[params.social]]
+icon = "fa-facebook-official"
+url = "https://www.facebook.com/search/top?q=otev%C5%99i%20o%C4%8Di%20(official)"
+weight = 1
+[[params.social]]
+icon = "fa-twitter-square"
+url = "https://www.facebook.com/"
+weight = 2

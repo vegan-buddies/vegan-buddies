@@ -1,0 +1,16 @@
+---
+enable: true
+topTitle: About VeganBuddies
+title: >
+  ## About the project
+
+  We are a community project to help match new vegans with experienced herbivour guides.
+
+content: >
+  ### Connecting new vegans with those who've walked the path.
+
+button1Name: Join us on github
+button2Name: Donate
+button1Target: https://github.com/vegan-buddies/vegan-buddies
+button2Target: https://www.darujme.cz/darovat/1200069?locale=en&frequency=monthly&widget=1200129
+image: https://assets.gradesta.com/screencasts/vegan-buddies-screencast-28-1-2022.gif
