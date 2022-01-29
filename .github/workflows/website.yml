@@ -33,3 +33,4 @@ jobs:
           protocol: ftps
           local-dir: web/public/
           server-dir: www/domains/veganbuddies.org/
+          state-name: ../.ftp-deploy-sync-state.json
