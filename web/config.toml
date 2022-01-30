@@ -1,4 +1,4 @@
-baseURL = "http://veganbuddies.org/"
+baseURL = "https://veganbuddies.org/"
 languageCode = "en-us"
 paginate = 6
 theme = "portio"
