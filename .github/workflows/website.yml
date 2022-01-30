@@ -20,9 +20,10 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: hugo
-        uses: klakegg/actions-hugo@1.0.0
+        uses: peaceiris/actions-hugo@v2
         with:
           source: web
+          extended: true
           
       - name: 📂 Sync files
         uses: SamKirkland/FTP-Deploy-Action@4.2.0
