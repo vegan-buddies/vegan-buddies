@@ -32,5 +32,5 @@ jobs:
           password: "${{ secrets.FTP_PASSWORD }}"
           protocol: ftps
           local-dir: web/public/
-          server-dir: www/domains/veganbuddies.org/
-          state-name: ../.ftp-deploy-sync-state.json
+          server-dir: /
+          state-name: ./.ftp-deploy-sync-state.json
