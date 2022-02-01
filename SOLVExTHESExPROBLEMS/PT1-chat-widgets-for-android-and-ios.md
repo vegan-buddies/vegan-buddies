@@ -20,3 +20,5 @@ Needs:
 2. https://fluffychat.im/ - Personal experience says it's not %100 stable
 
 3. https://syphon.org/ - Alpha
+
+Conclusion: Going with fluffychat for now

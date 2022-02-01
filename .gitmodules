@@ -1,3 +1,6 @@
 [submodule "web/themes/portio"]
 	path = web/themes/portio
 	url = git@github.com:vegan-buddies/web-portio-theme.git
+[submodule "fluffychat"]
+	path = fluffychat
+	url = https://gitlab.com/famedly/fluffychat.git
