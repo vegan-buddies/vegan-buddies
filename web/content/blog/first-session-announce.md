@@ -6,6 +6,8 @@ featureImage: https://assets.gradesta.com/vegan-buddies/img/avomik.jpg
 
 {{<video "https://assets.gradesta.com/screencasts/2022-02-01-veganbuddies-1.mp4" "https://youtu.be/8_4b1y8IyHU">}}
 
+In this stream I covered basic architecture and laid out the road map. I also got started putting together a plan for which tech stacks to use.
+
 Announcement
 ---------------
 
