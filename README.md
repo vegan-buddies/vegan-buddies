@@ -5,7 +5,7 @@ A comunity for new vegans and those who want to guide them to success.
 
 Follow our weekly progress on [veganbuddies.org](https://veganbuddies.org)!
 
-![screencast](./img/vegan-buddies-screencast.gif)
+![screencast](./web/static/images/vegan-buddies-screencast.gif)
 
 Roadmap
 ==========
