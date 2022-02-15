@@ -2,12 +2,11 @@
 enable: true
 topTitle: About VeganBuddies
 title: >
-  ## About the project
-
-  We are a community project to help match new vegans with experienced herbivour guides.
+  ## 
+  We are a community project to develop a mobile app for new vegans.
 
 content: >
-  ### Connecting new vegans with those who've walked the path.
+  ###  When we say community led, that means you! You can join our team.
 
 button1Name: Join us on github
 button2Name: Donate

@@ -1,7 +1,7 @@
 ---
 enable: true
 content: >
-  # A free open source mobile app to help new Vegans thrive
+  # A free open source app to match new vegans with experienced mentors
 
 buttonName: Join us on github
 buttonURL: https://github.com/vegan-buddies/vegan-buddies
