@@ -93,6 +93,7 @@ User index
   - User ratings
   - Lobste.rs address (If set and approved in lobste.rs they are a mentor)
   - Test results
+  - matrix.org nick
 
 Querying for near by mentors
 --------------

@@ -1,0 +1,4 @@
+*.git
+docker-home
+db
+*target*

@@ -1,0 +1,25 @@
+version: '2'
+services:
+ userindex:
+  build:
+   context: .
+  entrypoint: /bin/sh
+  links:
+   - postgres
+  tty: true
+  stdin_open: true
+  working_dir: /vb/
+  user: test
+  volumes:
+   - ./:/vb/
+   - ./docker-home:/home/test
+ postgres:
+  image: postgis/postgis:14-3.2-alpine
+  volumes:
+   - ./db:/var/lib/postgresql/data
+  environment:
+   POSTGRES_PASSWORD: foobar
+   POSTGRES_USER: vb
+   PGDATA: /var/lib/postgresql/data
+  ports:
+  - "6543:5432"
