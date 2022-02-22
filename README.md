@@ -91,19 +91,19 @@ Architecture
 User index
 
  - User - table
-  - Latitude and Longitude of users: postgis point
-  - Lobste.rs address (If set and approved in lobste.rs they are a mentor): charfield max 255
-  - matrix.org nick: charfield max 255
+    - Latitude and Longitude of users: postgis point
+    - Lobste.rs address (If set and approved in lobste.rs they are a mentor): charfield max 255
+    - matrix.org nick: charfield max 255
  - Test result - table
-  - User: FK Relationship
-  - Datetime
-  - grade: int
-  - answers: json
+    - User: FK Relationship
+    - Datetime
+    - grade: int
+    - answers: json
  - User rating - table
-  - Rated user: FK relationship
-  - Rating user: FK relationship
-  - Rating: int
-  - notes: Text
+    - Rated user: FK relationship
+    - Rating user: FK relationship
+    - Rating: int
+    - notes: Text
 
 Querying for near by mentors
 --------------
