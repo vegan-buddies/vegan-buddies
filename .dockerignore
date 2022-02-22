@@ -1,4 +1,5 @@
 *.git
+cargo-registry
 docker-home
 db
 *target*

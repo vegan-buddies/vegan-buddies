@@ -1,3 +1,4 @@
 web/public/
 db/
 docker-home/
+cargo-registry/
