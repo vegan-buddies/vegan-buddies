@@ -1,5 +1,5 @@
 ---
-title: "Stream #5: live 01.03.2022 18:00 CET"
+title: "Stream #5: DELAYED DUE TO TECHNICAL CHALLENGES live 22.03.2022 18:00 CET"
 date: 2022-02-22
 featureImage: https://assets.gradesta.com/vegan-buddies/img/avomik.jpg
 postImage: https://assets.gradesta.com/vegan-buddies/img/codingscreenshot.png
