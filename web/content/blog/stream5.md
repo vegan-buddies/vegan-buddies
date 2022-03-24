@@ -2,7 +2,6 @@
 title: "Stream #5: live 22.03.2022 18:00 CET"
 date: 2022-02-22
 featureImage: https://assets.gradesta.com/vegan-buddies/img/avomik.jpg
-postImage: https://assets.gradesta.com/vegan-buddies/img/codingscreenshot.png
 ---
 
 In the fifth stream I managed to get [diesel-cli](http://diesel.rs/) working.
