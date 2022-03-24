@@ -1,4 +1,4 @@
-docker-compose: Dockerfile
+docker-compose: matrix-geographic-user-index/Dockerfile
 	mkdir -p db
 	mkdir -p docker-home
 	mkdir -p cargo-registry

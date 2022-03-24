@@ -1,8 +1,7 @@
 version: '2'
 services:
  userindex:
-  build:
-   context: .
+  build: ./matrix-geographic-user-index/
   entrypoint: /bin/sh
   links:
    - postgres
