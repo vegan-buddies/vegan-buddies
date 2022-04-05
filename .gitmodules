@@ -4,3 +4,6 @@
 [submodule "fluffychat"]
 	path = fluffychat
 	url = https://gitlab.com/famedly/fluffychat.git
+[submodule "docker-lobsters"]
+	path = lobsters/docker-lobsters
+	url = git@github.com:utensils/docker-lobsters.git
