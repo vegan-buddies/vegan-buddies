@@ -10,6 +10,7 @@ edition = "2021"
 matrix_bot_api = "0.5.2"
 diesel = { version = "1.4.8", features = ["postgres"] }
 clap = "3.1.1"
+dotenv = "0.15.0"
 
 [dev-dependencies]
 tempdir = "0.3.7"
