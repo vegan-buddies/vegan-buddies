@@ -43,9 +43,9 @@ logo = "images/favicon.png"
 # Social icons
 [[params.social]]
 icon = "fa-facebook-official"
-url = "https://www.facebook.com/search/top?q=otev%C5%99i%20o%C4%8Di%20(official)"
+url = "https://www.facebook.com/search/top?q=vegan%20buddies%20app"
 weight = 1
 [[params.social]]
 icon = "fa-twitter-square"
-url = "https://www.facebook.com/"
+url = "https://twitter.com/OtevriOci"
 weight = 2
