@@ -11,15 +11,27 @@ services:
   user: test
   volumes:
    - ./:/vb/
-   - ./docker-home:/home/test
+   - ./docker-compose-cruft/docker-home:/home/test
    - ./cargo-registry:/usr/local/cargo/registry
  postgres:
   image: postgis/postgis:14-3.2-alpine
   volumes:
-   - ./db:/var/lib/postgresql/data
+   - ./docker-compose-cruft/db:/var/lib/postgresql/data
   environment:
    POSTGRES_PASSWORD: foobar
    POSTGRES_USER: vb
    PGDATA: /var/lib/postgresql/data
   ports:
   - "6543:5432"
+ synapse:
+  image: matrixdotorg/synapse:latest
+  entrypoint: /start.py
+  volumes:
+   - ./docker-compose-cruft/synapse-data:/data
+  environment:
+    SYNAPSE_SERVER_NAME: "synapse-test.localhost"
+    SYNAPSE_REPORT_STATS: "no"
+  ports:
+  - "8008:8008"
+  - "80:80"
+  - "8080:8080"

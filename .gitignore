@@ -2,3 +2,4 @@ web/public/
 db/
 docker-home/
 cargo-registry/
+docker-compose-cruft/
