@@ -3,12 +3,14 @@ services:
  userindex:
   build: ./matrix-geographic-user-index/
   entrypoint: /bin/sh
-  links:
-   - postgres
   tty: true
   stdin_open: true
   working_dir: /vb/
   user: test
+  # https://stackoverflow.com/questions/45458052/docker-compose-port-forwarding
+  # for testing we need to access synapse via localhost because that is the host name
+  # name that it needs to use in order to work both in container and on local dev machine.
+  network_mode: service:synapse
   volumes:
    - ./:/vb/
    - ./docker-compose-cruft/docker-home:/home/test
@@ -26,6 +28,8 @@ services:
  synapse:
   image: matrixdotorg/synapse:latest
   entrypoint: /start.py
+  links:
+   - postgres
   volumes:
    - ./docker-compose-cruft/synapse-data:/data
   environment:

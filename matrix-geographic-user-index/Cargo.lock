@@ -125,8 +125,8 @@ checksum = "670ad68c9088c2a963aaa298cb369688cf3f9465ce5e2d4ca10e6e0098a1ce73"
 dependencies = [
  "libc",
  "num-integer",
- "num-traits",
- "serde",
+ "num-traits 0.2.14",
+ "serde 1.0.136",
  "time",
  "winapi 0.3.9",
 ]
@@ -156,6 +156,22 @@ dependencies = [
 ]
 
 [[package]]
+name = "config"
+version = "0.9.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f9107d78ed62b3fa5a86e7d18e647abed48cfd8f8fab6c72f4cdb982d196f7e6"
+dependencies = [
+ "lazy_static 1.4.0",
+ "nom",
+ "rust-ini",
+ "serde 1.0.136",
+ "serde-hjson",
+ "serde_json",
+ "toml",
+ "yaml-rust",
+]
+
+[[package]]
 name = "cookie"
 version = "0.12.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -176,7 +192,7 @@ dependencies = [
  "idna 0.1.5",
  "log",
  "publicsuffix",
- "serde",
+ "serde 1.0.136",
  "serde_json",
  "time",
  "try_from",
@@ -228,7 +244,7 @@ dependencies = [
  "autocfg 1.1.0",
  "cfg-if 0.1.10",
  "crossbeam-utils",
- "lazy_static",
+ "lazy_static 1.4.0",
  "maybe-uninit",
  "memoffset",
  "scopeguard",
@@ -253,7 +269,7 @@ checksum = "c3c7c73a2d1e9fc0886a08b93e98eb643461230d5f1925e4036204d5f2e261a8"
 dependencies = [
  "autocfg 1.1.0",
  "cfg-if 0.1.10",
- "lazy_static",
+ "lazy_static 1.4.0",
 ]
 
 [[package]]
@@ -399,12 +415,12 @@ dependencies = [
  "chrono",
  "directories",
  "gio",
- "lazy_static",
+ "lazy_static 1.4.0",
  "log",
  "md5",
  "regex",
  "reqwest",
- "serde",
+ "serde 1.0.136",
  "serde_json",
  "time",
  "url 1.7.2",
@@ -473,7 +489,7 @@ dependencies = [
  "glib",
  "glib-sys",
  "gobject-sys",
- "lazy_static",
+ "lazy_static 1.4.0",
  "libc",
 ]
 
@@ -498,7 +514,7 @@ dependencies = [
  "bitflags",
  "glib-sys",
  "gobject-sys",
- "lazy_static",
+ "lazy_static 1.4.0",
  "libc",
 ]
 
@@ -702,6 +718,12 @@ dependencies = [
 
 [[package]]
 name = "lazy_static"
+version = "0.2.11"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "76f033c7ad61445c5b347c7382dd1237847eb1bce590fe50365dcb33d546be73"
+
+[[package]]
+name = "lazy_static"
 version = "1.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e2abad23fbc42b3700f2f279844dc832adb2b2eb069b2df918f455c4e18cc646"
@@ -711,6 +733,22 @@ name = "libc"
 version = "0.2.117"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e74d72e0f9b65b5b4ca49a346af3976df0f9c61d550727f349ecd559f251a26c"
+
+[[package]]
+name = "linked-hash-map"
+version = "0.3.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "6d262045c5b87c0861b3f004610afd0e2c851e2908d08b6c870cbb9d5f494ecd"
+dependencies = [
+ "serde 0.8.23",
+ "serde_test",
+]
+
+[[package]]
+name = "linked-hash-map"
+version = "0.5.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7fb9b38af92608140b86b693604b9ffcc5824240a484d1ecd4795bacb2fe88f3"
 
 [[package]]
 name = "lock_api"
@@ -741,6 +779,7 @@ name = "matrix-geographic-user-index"
 version = "0.0.0"
 dependencies = [
  "clap",
+ "config",
  "diesel",
  "dotenv",
  "matrix_bot_api",
@@ -847,7 +886,7 @@ version = "0.2.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "48ba9f7719b5a0f42f338907614285fb5fd70e53858141f69898a1fb7203b24d"
 dependencies = [
- "lazy_static",
+ "lazy_static 1.4.0",
  "libc",
  "log",
  "openssl",
@@ -871,13 +910,32 @@ dependencies = [
 ]
 
 [[package]]
+name = "nom"
+version = "4.2.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2ad2a91a8e869eeb30b9cb3119ae87773a8f4ae617f41b1eb9c154b2905f7bd6"
+dependencies = [
+ "memchr",
+ "version_check 0.1.5",
+]
+
+[[package]]
 name = "num-integer"
 version = "0.1.44"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d2cc698a63b549a70bc047073d2949cce27cd1c7b0a4a862d08a8031bc2801db"
 dependencies = [
  "autocfg 1.1.0",
- "num-traits",
+ "num-traits 0.2.14",
+]
+
+[[package]]
+name = "num-traits"
+version = "0.1.43"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "92e5113e9fd4cc14ded8e499429f396a20f98c772a47cc8622a736e1ec843c31"
+dependencies = [
+ "num-traits 0.2.14",
 ]
 
 [[package]]
@@ -1226,7 +1284,7 @@ dependencies = [
  "mime",
  "mime_guess",
  "native-tls",
- "serde",
+ "serde 1.0.136",
  "serde_json",
  "serde_urlencoded",
  "time",
@@ -1239,6 +1297,12 @@ dependencies = [
  "uuid",
  "winreg",
 ]
+
+[[package]]
+name = "rust-ini"
+version = "0.13.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3e52c148ef37f8c375d49d5a73aa70713125b7f19095948a923f80afdeb22ec2"
 
 [[package]]
 name = "rustc-demangle"
@@ -1267,7 +1331,7 @@ version = "0.1.19"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8f05ba609c234e60bee0d547fe94a4c7e9da733d1c962cf6e59efa4cd9c8bc75"
 dependencies = [
- "lazy_static",
+ "lazy_static 1.4.0",
  "winapi 0.3.9",
 ]
 
@@ -1317,11 +1381,30 @@ checksum = "388a1df253eca08550bef6c72392cfe7c30914bf41df5269b68cbd6ff8f570a3"
 
 [[package]]
 name = "serde"
+version = "0.8.23"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "9dad3f759919b92c3068c696c15c3d17238234498bbdcc80f2c469606f948ac8"
+
+[[package]]
+name = "serde"
 version = "1.0.136"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ce31e24b01e1e524df96f1c2fdd054405f8d7376249a5110886fb4b658484789"
 dependencies = [
  "serde_derive",
+]
+
+[[package]]
+name = "serde-hjson"
+version = "0.8.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "0b833c5ad67d52ced5f5938b2980f32a9c1c5ef047f0b4fb3127e7a423c76153"
+dependencies = [
+ "lazy_static 0.2.11",
+ "linked-hash-map 0.3.0",
+ "num-traits 0.1.43",
+ "regex",
+ "serde 0.8.23",
 ]
 
 [[package]]
@@ -1343,7 +1426,16 @@ checksum = "d23c1ba4cf0efd44be32017709280b32d1cea5c3f1275c3b6d9e8bc54f758085"
 dependencies = [
  "itoa 1.0.1",
  "ryu",
- "serde",
+ "serde 1.0.136",
+]
+
+[[package]]
+name = "serde_test"
+version = "0.8.23"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "110b3dbdf8607ec493c22d5d947753282f3bae73c0f56d322af1e8c78e4c23d5"
+dependencies = [
+ "serde 0.8.23",
 ]
 
 [[package]]
@@ -1354,7 +1446,7 @@ checksum = "642dd69105886af2efd227f75a520ec9b44a820d65bc133a9131f7d229fd165a"
 dependencies = [
  "dtoa",
  "itoa 0.4.8",
- "serde",
+ "serde 1.0.136",
  "url 1.7.2",
 ]
 
@@ -1545,7 +1637,7 @@ checksum = "09bc590ec4ba8ba87652da2068d150dcada2cfa2e07faae270a5e0409aa51351"
 dependencies = [
  "crossbeam-utils",
  "futures",
- "lazy_static",
+ "lazy_static 1.4.0",
  "log",
  "mio",
  "num_cpus",
@@ -1590,7 +1682,7 @@ dependencies = [
  "crossbeam-queue",
  "crossbeam-utils",
  "futures",
- "lazy_static",
+ "lazy_static 1.4.0",
  "log",
  "num_cpus",
  "slab",
@@ -1607,6 +1699,15 @@ dependencies = [
  "futures",
  "slab",
  "tokio-executor",
+]
+
+[[package]]
+name = "toml"
+version = "0.4.10"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "758664fc71a3a69038656bee8b6be6477d2a6c315a6b81f7081f591bffa4111f"
+dependencies = [
+ "serde 1.0.136",
 ]
 
 [[package]]
@@ -1630,7 +1731,7 @@ version = "2.6.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "50f37be617794602aabbeee0be4f259dc1778fabe05e2d67ee8f79326d5cb4f6"
 dependencies = [
- "version_check",
+ "version_check 0.9.4",
 ]
 
 [[package]]
@@ -1697,6 +1798,12 @@ name = "vcpkg"
 version = "0.2.15"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "accd4ea62f7bb7a82fe23066fb0957d48ef677f6eeb8215f372f52e48bb32426"
+
+[[package]]
+name = "version_check"
+version = "0.1.5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "914b1a6776c4c929a602fafd8bc742e06365d4bcbe48c30f9cca5824f70dc9dd"
 
 [[package]]
 name = "version_check"
@@ -1781,4 +1888,13 @@ checksum = "d59cefebd0c892fa2dd6de581e937301d8552cb44489cdff035c6187cb63fa5e"
 dependencies = [
  "winapi 0.2.8",
  "winapi-build",
+]
+
+[[package]]
+name = "yaml-rust"
+version = "0.4.5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "56c1936c4cc7a1c9ab21a1ebb602eb942ba868cbd44a99cb7cdc5892335e1c85"
+dependencies = [
+ "linked-hash-map 0.5.4",
 ]
