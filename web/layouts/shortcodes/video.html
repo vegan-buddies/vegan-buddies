@@ -2,5 +2,7 @@
     <source src="{{ .Get 0 }}" type="video/mp4">
 </video>
 <br>
+{{ if .Get 1 }}
 <a href="{{ .Get 1 }}">Youtube link</a>
+{{ end }}
 
