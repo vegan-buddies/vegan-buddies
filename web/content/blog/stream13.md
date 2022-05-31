@@ -6,6 +6,6 @@ featureImage: https://assets.gradesta.com/vegan-buddies/img/avomik.jpg
 
 In this stream I manage to get the matrix bot api example working.
 
-{{<video "https://assets.gradesta.com/screencasts/2022-05-24-veganbuddies13.mp4" "">}}
+{{<video "https://assets.gradesta.com/screencasts/2022-05-24-veganbuddies13.mp4" "https://www.youtube.com/watch?v=xGQC192bw7Y">}}
 
 
