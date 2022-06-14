@@ -1,5 +1,5 @@
 ---
-title: "Stream #15: Matrix bot test bot - live 07.06.2022 18:30 CET"
+title: "Stream #15: Matrix bot test bot - live 7.06.2022 18:30 CET"
 date: 2022-06-07
 featureImage: https://assets.gradesta.com/vegan-buddies/img/avomik.jpg
 ---
