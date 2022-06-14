@@ -57,7 +57,7 @@ async fn main() -> Result<(), matrix_sdk::Error>  {
     };
     println!("Logged in successfully.");
     println!("Syncing data");
-    client.sync(SyncSettings::new()).await;
+    client.sync_once(SyncSettings::new()).await?;
     println!("Sync complete");
     return Ok(());
 
