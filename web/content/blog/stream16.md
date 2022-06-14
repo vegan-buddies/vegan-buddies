@@ -1,7 +1,7 @@
 ---
 title: "Stream #16: Matrix bot test bot - 14.06.2022 19:00 CET"
 date: 2022-06-14
-featureImage: https://assets.gradesta.com/vegan-buddies/img/avomik.jpg
+featureImage: https://assets.gradesta.com/vegan-buddies/img/robot.jpg
 ---
 
 This week I worked on the test bot that I will use to test the vegan buddies bot.
