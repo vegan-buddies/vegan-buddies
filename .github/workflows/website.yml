@@ -31,7 +31,7 @@ jobs:
         run: hugo
         
       - name: 📂 Sync files
-        uses: timthelion/FTP-Deploy-Action@c730773ad674c6320979ce0861a12fb516dcbdb3
+        uses: timthelion/FTP-Deploy-Action@9b70649a2e178012c8f695d417c7f6caf9e678f5
         with:
           server: "${{ secrets.FTP_SERVER }}"
           username: "${{ secrets.FTP_USERNAME }}"
