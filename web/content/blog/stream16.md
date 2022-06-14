@@ -1,6 +1,7 @@
 ---
 title: "Stream #16: Matrix bot test bot - 14.06.2022 19:00 CET"
 date: 2022-06-14
+draft: true
 featureImage: https://assets.gradesta.com/vegan-buddies/img/robot.jpg
 ---
 
