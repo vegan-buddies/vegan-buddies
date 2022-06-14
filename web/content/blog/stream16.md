@@ -96,4 +96,4 @@ I briefly considered [buying a faster computer](https://bobweb.co/article/thread
 
 The full 3 hours of frustration and exhaustion can be viewed below.
 
-{{<video "" "">}}
+{{<video "" "https://youtu.be/JlLl9VJ8uJ4">}}
