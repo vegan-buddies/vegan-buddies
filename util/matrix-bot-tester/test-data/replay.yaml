@@ -1,0 +1,8 @@
+messages:
+  - send: Foo
+    expect: Bar
+  - expect: Baz
+  - send: Lol
+    expect: Baz
+  - send: hmm
+    expect: hrm

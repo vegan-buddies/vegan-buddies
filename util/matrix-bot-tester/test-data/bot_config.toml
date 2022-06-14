@@ -1,0 +1,3 @@
+user = "mock_client"
+password = "test"
+homeserver_url = "http://localhost:8008"
