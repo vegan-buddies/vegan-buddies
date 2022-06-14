@@ -41,14 +41,24 @@ async fn main() -> Result<(), matrix_sdk::Error>  {
     // Login
     let user = settings.get_str("user").unwrap();
     let password = settings.get_str("password").unwrap();
-    let homeserver_url = settings.get_str("homeserver_url").unwrap();
-    let homeserver_url = Url::parse(&homeserver_url).expect("Couldn't parse the homeserver URL");
+    let homeserver_url_str = settings.get_str("homeserver_url").unwrap();
+    let homeserver_url = Url::parse(&homeserver_url_str).expect("Couldn't parse the homeserver URL");
     let client = Client::new(homeserver_url).unwrap();
 
     // client.register_event_handler(on_room_message).await;
 
-    client.login(&user, &password, None, None).await;
-    //client.sync(SyncSettings::new()).await;
+    println!("Logging in to homeserver {} as {}", &homeserver_url_str, &user);
+    match client.login(&user, &password, None, None).await {
+        Ok(_) => (),
+        Err(e) => {
+            eprintln!("Error logging in {}", e);
+            exit(1);
+        }
+    };
+    println!("Logged in successfully.");
+    println!("Syncing data");
+    client.sync(SyncSettings::new()).await;
+    println!("Sync complete");
     return Ok(());
 
     /*
