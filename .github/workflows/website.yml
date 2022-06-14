@@ -41,3 +41,4 @@ jobs:
           local-dir: web/public/
           server-dir: /
           state-name: ../.ftp-deploy-sync-state.json
+          log-level: verbose
