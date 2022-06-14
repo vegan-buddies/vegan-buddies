@@ -31,12 +31,13 @@ jobs:
         run: hugo
         
       - name: 📂 Sync files
-        uses: SamKirkland/FTP-Deploy-Action@4.2.0
+        uses: timthelion/FTP-Deploy-Action@c730773ad674c6320979ce0861a12fb516dcbdb3
         with:
           server: "${{ secrets.FTP_SERVER }}"
           username: "${{ secrets.FTP_USERNAME }}"
           password: "${{ secrets.FTP_PASSWORD }}"
           protocol: ftps
+          sync-posix-modes: true
           local-dir: web/public/
           server-dir: /
           state-name: ../.ftp-deploy-sync-state.json
