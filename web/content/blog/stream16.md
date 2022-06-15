@@ -1,7 +1,7 @@
 ---
 title: "Stream #16: Matrix bot test bot - 14.06.2022 19:00 CET"
 date: 2022-06-14
-draft: true
+draft: false
 featureImage: https://assets.gradesta.com/vegan-buddies/img/robot.jpg
 ---
 
@@ -96,4 +96,4 @@ I briefly considered [buying a faster computer](https://bobweb.co/article/thread
 
 The full 3 hours of frustration and exhaustion can be viewed below.
 
-{{<video "" "https://youtu.be/JlLl9VJ8uJ4">}}
+{{<video "https://assets.gradesta.com/screencasts/2022-06-15-veganbuddies16.webm" "https://youtu.be/JlLl9VJ8uJ4">}}
