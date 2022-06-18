@@ -14,7 +14,7 @@ services:
   volumes:
    - ./:/vb/
    - ./docker-compose-cruft/docker-home:/home/test
-   - ./cargo-registry:/usr/local/cargo/registry
+   - ./docker-compose-cruft/cargo-registry:/usr/local/cargo/registry
  postgres:
   image: postgis/postgis:14-3.2-alpine
   volumes:
