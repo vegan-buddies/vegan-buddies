@@ -1,5 +1,5 @@
 ---
-title: "Stream #18: Matrix test bot - bot #2
+title: "Stream #18: Matrix test bot - bot #2"
 date: 2022-08-02
 draft: false
 featureImage: https://assets.gradesta.com/vegan-buddies/img/robot.jpg
