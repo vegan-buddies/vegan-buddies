@@ -9,4 +9,4 @@ In this stream I continue trying to configure the matrix-bot test bot. Right now
 
 In the mean time, I tried copying the content out of `create_dm_room` but ended up just spending a lot of time figuring out how `impl` works with rust pointers (apparently it's possible to `impl` things for a pointer but not for the main type.) In the end I wasn't able to copy the code out due to it calling other private methods.
 
-{{<video "" "">}}
+{{<video "https://assets.gradesta.com/screencasts/2022-08-02-veganbuddies18.mp4" "">}}
