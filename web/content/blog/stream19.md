@@ -1,7 +1,7 @@
 ---
 title: "Stream #19: Matrix test bot - bot #3"
 date: 2022-08-16
-draft: true
+draft: false
 featureImage: https://assets.gradesta.com/vegan-buddies/img/robot.jpg
 ---
 
