@@ -2,7 +2,7 @@
 title: "Stream #19: Matrix test bot - bot #3"
 date: 2022-08-16
 draft: false
-featureImage: https://assets.gradesta.com/vegan-buddies/img/robot.jpg
+featureImage: https://assets.gradesta.com/vegan-buddies/img/dalle2-robot1.png
 ---
 
 Making [`create_dm_room`](https://github.com/matrix-org/matrix-rust-sdk/issues/908#issuecomment-1216439984) public
