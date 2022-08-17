@@ -21,4 +21,8 @@ In order to then synchronously process the messages, I set up a method for redir
 
 Unfortunately I wasn't able to finish things up with the bot tester bot because I had [some troubles](https://github.com/matrix-org/matrix-rust-sdk/issues/908#issuecomment-1217088218) building the devel version of matrix-rust-sdk.
 
+But luckly the nice people over at the matrix-org github org quicly corrected my mistake. I had included an extraneous dependency on the stable version of `matrix-sdk-common`. Now that dependency builds as seen in. Part 2
+
+{{<screencast "2022-08-17-2580fc1411aefc84887e9a108cd1844f">}}
+
 So I should hopefully finish the bot tester bot next week.
