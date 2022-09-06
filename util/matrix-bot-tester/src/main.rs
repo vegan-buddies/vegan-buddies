@@ -3,7 +3,7 @@ extern crate config;
 use matrix_bot_tester::args::{Args};
 use clap::Parser;
 use tokio::sync::mpsc;
-use anyhow::anyhow;
+use std::sync::Arc;
 
 use matrix_sdk::{
     self,
@@ -28,11 +28,11 @@ use url::Url;
 async fn main() -> anyhow::Result<()>  {
     let args = Args::parse();
 
-    let mut settings = config::Config::builder()
+    let settings = config::Config::builder()
         .add_source(config::File::new(&args.bot_config, config::FileFormat::Yaml))
         .build()?;
 
-    let mut replay = config::Config::builder()
+    let replay = config::Config::builder()
         .add_source(config::File::new(&args.replay, config::FileFormat::Yaml))
         .build()?;
 
@@ -53,14 +53,14 @@ async fn main() -> anyhow::Result<()>  {
     println!("Sync complete.");
     let user_id_string: String = settings.get_string("user_to_test")?;
     let user_id: OwnedUserId = UserId::parse(&user_id_string)?;
-    let room = client.create_dm_room(user_id.to_owned()).await?.ok_or(anyhow!("No dm room created."))?;
+    let dm_room = Arc::new(client.create_dm_room(&user_id).await?);
+    let dm_room_closure = dm_room.clone();
 
-    let room_id = room.room_id();
     let (tx, mut rx) = mpsc::channel(32);
-    client.add_event_handler(async move |event: OriginalSyncRoomMessageEvent, room: Room| {
+    client.add_event_handler(move |event: OriginalSyncRoomMessageEvent, room: Room| async  {
 
         if let Room::Joined(room) = room {
-            if room.room_id() == room_id{
+            if room.room_id() == dm_room_closure.room_id() {
                 match event.content.msgtype {
                     MessageType::Text(TextMessageEventContent { body, .. }) => {
                         tx.send(body);
@@ -68,22 +68,24 @@ async fn main() -> anyhow::Result<()>  {
                     _ => return,
                 }
             }
-        }
+        };
     });
 
     let messages = replay.get_array("messages").unwrap();
     for message in messages {
         let message_pair = message.into_table().unwrap();
         if let Some(send)= message_pair.get("send") {
+            let send = send.clone();
             let send = send.into_string()?;
             println!("send: {}", send);
             let content = RoomMessageEventContent::text_plain(&send);
             let txn_id = TransactionId::new();
-            room.send(content, Some(&txn_id)).await?;
+            dm_room.send(content, Some(&txn_id)).await?;
         };
         if let Some(expectation) = message_pair.get("expect"){
+            let expectation = expectation.clone();
             let expectation: String = expectation.into_string()?;
-            let Some(response) = rx.recv().await;
+            let response = rx.recv().await.unwrap();
             println!("recieved: {}", response);
             if response != expectation {
                 eprintln!("Expected to hear '{}'", expectation);
