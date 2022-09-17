@@ -1164,6 +1164,8 @@ dependencies = [
  "anyhow",
  "clap",
  "config",
+ "futures-channel",
+ "futures-util",
  "matrix-sdk",
  "tokio",
  "url",

@@ -9,6 +9,8 @@ edition = "2021"
 clap = { version = "3.1.18", features = ["derive"] }
 config = "0.13.2"
 matrix-sdk =  { path = "../../third-party/matrix-rust-sdk/crates/matrix-sdk/" }
+futures-channel = { version = "0.3.21", features = ["sink"] }
+futures-util = { version = "0.3.21", default-features = false, features = ["sink"] }
 url = "2.2.2"
 tokio = { version ="1.19.2", features = ["macros", "io-util", "rt-multi-thread"]}
 anyhow = "1.0"
