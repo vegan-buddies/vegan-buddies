@@ -73,17 +73,16 @@ async fn main() -> anyhow::Result<()> {
     println!("Sync complete.");
     let user_id_string: String = settings.get_string("user_to_test")?;
     let user_id: OwnedUserId = UserId::parse(&user_id_string)?;
-    let dm_room = Arc::new(client.create_dm_room(&user_id).await?);
-    let dm_room_closure = dm_room.clone();
+    let dm_room = client.create_dm_room(&user_id).await?;
+    let room_id = dm_room.room_id().as_str().to_string();
 
     let handle = client.add_event_handler({
         move |event: OriginalSyncRoomMessageEvent, room: Room| {
             let mut tx = tx.clone();
-            let room_id = dm_room_closure.room_id();
-
+            let room_id = room_id.clone();
             async move {
                 if let Room::Joined(room) = room {
-                    if room.room_id() == room_id {
+                    if room.room_id().as_str() == room_id {
                         match event.content.msgtype {
                             MessageType::Text(TextMessageEventContent { body, .. }) => {
                                 tx.send(body).await.unwrap();
