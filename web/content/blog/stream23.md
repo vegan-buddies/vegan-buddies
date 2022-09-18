@@ -33,4 +33,6 @@ If I figure out a way around this by the end of the screencast I'll be happy. It
 
 {{<screencast "2022-09-17-c0bdcca4-cbc3-4ef1-8ba9-46638473c1cf">}}
 
+The next day after the screencast, I sat down and played with it some more and finally was able to [come up with a fix](https://github.com/vegan-buddies/vegan-buddies/commit/bb459e9df01f555e490944e81919bb9660258a18) see [the stackoverflow answer](https://stackoverflow.com/a/73762668/2126889) for more details.
+
 As a side note, I'm trying something new. Rather than capturing my screen directly, I'm making a video of my screen using a web cam. The idea is to showcase some of the weird and unusual tech I use including the datahands keyboard and the DASUNG eink monitor.
