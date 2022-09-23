@@ -4,12 +4,14 @@ use clap::Parser;
 use futures_channel::mpsc;
 use futures_util::{SinkExt, StreamExt};
 use matrix_bot_tester::args::Args;
-use std::sync::Arc;
+
+use anyhow::anyhow;
 
 use matrix_sdk::{
     self,
     config::SyncSettings,
     event_handler::EventHandlerHandle,
+    room,
     room::Room,
     ruma::events::room::message::{
         MessageType, OriginalSyncRoomMessageEvent, RoomMessageEventContent, TextMessageEventContent,
@@ -36,10 +38,21 @@ pub(crate) fn event_handler_drop_guard(
     }
 }
 
+enum RoomToConnect {
+    DM,
+    /*
+    TASK: Implement connecting to a specific room.
+    TASK_ID: 809e6f8b327944b146161f698ffd50db
+    CREATED: 2022-09-23 11:10
+    ESTIMATED_TIME: W3
+    */
+    Room(String),
+    WaitForMessage,
+}
+
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
     let args = Args::parse();
-    let (tx, mut rx) = mpsc::channel::<String>(1);
 
     let settings = config::Config::builder()
         .add_source(config::File::new(
@@ -60,8 +73,6 @@ async fn main() -> anyhow::Result<()> {
         Url::parse(&homeserver_url_str).expect("Couldn't parse the homeserver URL");
     let client = Client::new(homeserver_url).await?;
 
-    // client.register_event_handler(on_room_message).await;
-
     println!(
         "Logging in to homeserver {} as {}.",
         &homeserver_url_str, &user
@@ -73,19 +84,48 @@ async fn main() -> anyhow::Result<()> {
     println!("Sync complete.");
     let user_id_string: String = settings.get_string("user_to_test")?;
     let user_id: OwnedUserId = UserId::parse(&user_id_string)?;
-    let dm_room = client.create_dm_room(&user_id).await?;
-    let room_id = dm_room.room_id().as_str().to_string();
+
+    let room_to_connect: RoomToConnect = match replay.get_string("room_to_connect").as_deref() {
+        Ok("!dm") => RoomToConnect::DM,
+        Err(_) => RoomToConnect::DM,
+        Ok("!wait_for_message") => RoomToConnect::WaitForMessage,
+        Ok(_room_name) => todo!("Implement the ability to specify a room to connect to."), //RoomToConnect::Room{room_name},
+    };
+
+    let (room_id, dm_room) = match room_to_connect {
+        RoomToConnect::DM => {
+            let dm_room = client.create_dm_room(&user_id).await?;
+            (Some(dm_room.room_id().as_str().to_string()), Some(dm_room))
+        }
+        RoomToConnect::WaitForMessage => (None, None),
+        RoomToConnect::Room(_) => todo!("Implement specifying which room to connect to."),
+    };
+
+    let mut room_were_talking_in = dm_room;
+
+    let (tx, mut rx) = mpsc::channel::<(room::Joined, String)>(1);
 
     let handle = client.add_event_handler({
         move |event: OriginalSyncRoomMessageEvent, room: Room| {
             let mut tx = tx.clone();
             let room_id = room_id.clone();
             async move {
+                /*
+                TASK: Differenciate between rooms when acting as client.
+                TASK_ID: d8a25b06580bb9b6605fb8ad0d5c8c31
+                CREATED: 2022-09-23 10:27
+                ESTIMATED_TIME: W4
+                 */
+
                 if let Room::Joined(room) = room {
-                    if room.room_id().as_str() == room_id {
+                    let right_room = match room_id {
+                        Some(id) => room.room_id().as_str() == id,
+                        None => true,
+                    };
+                    if right_room {
                         match event.content.msgtype {
                             MessageType::Text(TextMessageEventContent { body, .. }) => {
-                                tx.send(body).await.unwrap();
+                                tx.send((room, body)).await.unwrap();
                             }
                             _ => return,
                         }
@@ -105,12 +145,18 @@ async fn main() -> anyhow::Result<()> {
             println!("send: {}", send);
             let content = RoomMessageEventContent::text_plain(&send);
             let txn_id = TransactionId::new();
-            dm_room.send(content, Some(&txn_id)).await?;
+            room_were_talking_in
+                .ok_or(anyhow!("No room specified as to where to send the message"))?
+                .send(content, Some(&txn_id))
+                .await?;
         };
         if let Some(expectation) = message_pair.get("expect") {
             let expectation = expectation.clone();
             let expectation: String = expectation.into_string()?;
-            let response = StreamExt::next(&mut rx).await.expect("next room message.");
+            let (room, response) = StreamExt::next(&mut rx).await.expect("next room message.");
+            if room_were_talking_in.is_none() {
+                room_were_talking_in = Some(room);
+            }
             println!("recieved: {}", response);
             if response != expectation {
                 eprintln!("Expected to hear '{}'", expectation);
