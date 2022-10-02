@@ -1,0 +1,9 @@
+room_to_connect: "!wait_for_message"
+messages:
+  - expect: Foo
+  - send: Bar
+  - send: Baz
+  - expect Lol
+  - send Baz
+  - expect hmm
+  - send hrm

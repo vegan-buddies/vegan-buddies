@@ -26,4 +26,6 @@ error[E0382]: use of moved value: `room_were_talking_in`
 For more information about this error, try `rustc --explain E0382`.
 ```
 
+*Update*: It turns out that it is a simple matter of taking a reference to the Option with `.as_ref()` on [the line that moved the room](https://github.com/vegan-buddies/vegan-buddies/blob/73155357078f99f8371626d0d5ef4b3dc3cf5960/util/matrix-bot-tester/src/main.rs#L148).
+
 {{<screencast "2022-09-23-c46b926d-b340-4b76-9d31-48041e7c9a20">}}

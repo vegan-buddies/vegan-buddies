@@ -1,0 +1,3 @@
+user: "bot"
+password: "test"
+homeserver_url: "http://localhost:8008"

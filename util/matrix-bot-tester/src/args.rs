@@ -11,8 +11,4 @@ pub struct Args {
     // Toml file with messages and expected responses that should be replayed to the tested user
     #[clap(short, long)]
     pub replay: String,
-
-    // User to test
-    #[clap(short, long)]
-    pub user_to_test: String,
 }

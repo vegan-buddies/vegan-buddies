@@ -82,9 +82,6 @@ async fn main() -> anyhow::Result<()> {
     println!("Syncing data...");
     client.sync_once(SyncSettings::new()).await?;
     println!("Sync complete.");
-    let user_id_string: String = settings.get_string("user_to_test")?;
-    let user_id: OwnedUserId = UserId::parse(&user_id_string)?;
-
     let room_to_connect: RoomToConnect = match replay.get_string("room_to_connect").as_deref() {
         Ok("!dm") => RoomToConnect::DM,
         Err(_) => RoomToConnect::DM,
@@ -94,6 +91,9 @@ async fn main() -> anyhow::Result<()> {
 
     let dm_room = match room_to_connect {
         RoomToConnect::DM => {
+            let user_id_string: String = settings.get_string("user_to_test")?;
+            println!("Creating a dm room with user \"{}\".", &user_id_string);
+            let user_id: OwnedUserId = UserId::parse(&user_id_string)?;
             let dm_room = client.create_dm_room(&user_id).await?;
             Some(dm_room)
         }
