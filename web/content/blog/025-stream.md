@@ -38,3 +38,5 @@ Sync complete.
 ```
 
 so I assumed that the problem was in the one bit of code that was different for client configs. The part that called the newly public `create_dm_room`. At the time I was passing the username `bot` to the function `let user_id: OwnedUserId = UserId::parse(&user_id_string)?;`, apparently that doesn't work. Luckly, it was a simple matter of changing that to the "full" username: `"@bot:synapse-test.localhost"`.
+
+Then I was faced with another problem. The tester didn't actually do anything when run. It seems to be hanging on `create_dm_room`. I'll figure out what has gone wrong next week.
