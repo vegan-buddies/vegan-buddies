@@ -92,12 +92,12 @@ async fn main() -> anyhow::Result<()> {
         Ok(_room_name) => todo!("Implement the ability to specify a room to connect to."), //RoomToConnect::Room{room_name},
     };
 
-    let (room_id, dm_room) = match room_to_connect {
+    let dm_room = match room_to_connect {
         RoomToConnect::DM => {
             let dm_room = client.create_dm_room(&user_id).await?;
-            (Some(dm_room.room_id().as_str().to_string()), Some(dm_room))
+            Some(dm_room)
         }
-        RoomToConnect::WaitForMessage => (None, None),
+        RoomToConnect::WaitForMessage => None,
         RoomToConnect::Room(_) => todo!("Implement specifying which room to connect to."),
     };
 
@@ -108,7 +108,6 @@ async fn main() -> anyhow::Result<()> {
     let handle = client.add_event_handler({
         move |event: OriginalSyncRoomMessageEvent, room: Room| {
             let mut tx = tx.clone();
-            let room_id = room_id.clone();
             async move {
                 /*
                 TASK: Differenciate between rooms when acting as client.
@@ -118,17 +117,11 @@ async fn main() -> anyhow::Result<()> {
                  */
 
                 if let Room::Joined(room) = room {
-                    let right_room = match room_id {
-                        Some(id) => room.room_id().as_str() == id,
-                        None => true,
-                    };
-                    if right_room {
-                        match event.content.msgtype {
-                            MessageType::Text(TextMessageEventContent { body, .. }) => {
-                                tx.send((room, body)).await.unwrap();
-                            }
-                            _ => return,
+                    match event.content.msgtype {
+                        MessageType::Text(TextMessageEventContent { body, .. }) => {
+                            tx.send((room, body)).await.unwrap();
                         }
+                        _ => return,
                     }
                 }
             }
@@ -146,6 +139,7 @@ async fn main() -> anyhow::Result<()> {
             let content = RoomMessageEventContent::text_plain(&send);
             let txn_id = TransactionId::new();
             room_were_talking_in
+                .as_ref()
                 .ok_or(anyhow!("No room specified as to where to send the message"))?
                 .send(content, Some(&txn_id))
                 .await?;
@@ -153,10 +147,19 @@ async fn main() -> anyhow::Result<()> {
         if let Some(expectation) = message_pair.get("expect") {
             let expectation = expectation.clone();
             let expectation: String = expectation.into_string()?;
-            let (room, response) = StreamExt::next(&mut rx).await.expect("next room message.");
-            if room_were_talking_in.is_none() {
-                room_were_talking_in = Some(room);
-            }
+            let response = loop {
+                let (room, response) = StreamExt::next(&mut rx).await.expect("next room message.");
+                let right_room = match room_were_talking_in.as_ref() {
+                    Some(rwti) => room.room_id().as_str() == rwti.room_id(),
+                    None => {
+                        room_were_talking_in = Some(room);
+                        true
+                    }
+                };
+                if right_room {
+                    break response;
+                }
+            };
             println!("recieved: {}", response);
             if response != expectation {
                 eprintln!("Expected to hear '{}'", expectation);
