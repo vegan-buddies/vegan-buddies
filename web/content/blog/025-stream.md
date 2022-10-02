@@ -1,8 +1,8 @@
 ---
 title: "#25: Bot tester: Sharing an non Copyable Room::Joined object"
 date: 2022-10-02
-draft: true
-featureImage: https://assets.gradesta.com/vegan-buddies/img/dalle2-flying-room.png
+draft: false
+featureImage: https://assets.gradesta.com/vegan-buddies/img/dalle2-knocking.png
 ---
 
 {{<screencast "2022-10-02-95269c8c-beb5-4e88-a9aa-545113bcd4c5">}}
