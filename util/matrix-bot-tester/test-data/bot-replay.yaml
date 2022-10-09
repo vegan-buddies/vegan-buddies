@@ -3,7 +3,7 @@ messages:
   - expect: Foo
   - send: Bar
   - send: Baz
-  - expect Lol
-  - send Baz
-  - expect hmm
-  - send hrm
+  - expect: Lol
+  - send: Baz
+  - expect: hmm
+  - send: hrm
