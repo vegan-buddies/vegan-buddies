@@ -38,6 +38,7 @@ pub(crate) fn event_handler_drop_guard(
     }
 }
 
+#[derive(Debug)]
 enum RoomToConnect {
     DM,
     /*
@@ -94,8 +95,9 @@ async fn main() -> anyhow::Result<()> {
             let user_id_string: String = settings.get_string("user_to_test")?;
             println!("Creating a dm room with user \"{}\".", &user_id_string);
             let user_id: OwnedUserId = UserId::parse(&user_id_string)?;
-            let dm_room = client.create_dm_room(&user_id).await?;
-            Some(dm_room)
+            let dm_room = client.create_dm_room(user_id).await?;
+            assert!(!dm_room.is_none());
+            dm_room
         }
         RoomToConnect::WaitForMessage => None,
         RoomToConnect::Room(_) => todo!("Implement specifying which room to connect to."),
@@ -121,8 +123,10 @@ async fn main() -> anyhow::Result<()> {
                         MessageType::Text(TextMessageEventContent { body, .. }) => {
                             tx.send((room, body)).await.unwrap();
                         }
-                        _ => return,
+                        _ => (),
                     }
+                } else {
+                    panic!("room: {:?}, event {:?}", room, event);
                 }
             }
         }
@@ -130,6 +134,7 @@ async fn main() -> anyhow::Result<()> {
 
     let _guard = event_handler_drop_guard(client, handle);
     let messages = replay.get_array("messages").unwrap();
+    println!("{:?}", messages);
     for message in messages {
         let message_pair = message.into_table().unwrap();
         if let Some(send) = message_pair.get("send") {

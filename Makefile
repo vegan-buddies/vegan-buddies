@@ -5,7 +5,7 @@ docker-compose-cruft:
 	mkdir -p docker-compose-cruft/synapse-data
 
 docker-image: matrix-geographic-user-index/Dockerfile docker-compose-cruft
-	sudo docker-compose build --build-arg UID=$(shell id -u)
+	sudo docker-compose build --build-arg UID=$(shell id -u) --no-cache
 
 matrix-users: docker-image
 	sudo docker-compose up -d synapse
