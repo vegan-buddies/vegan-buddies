@@ -1,8 +1,8 @@
 ---
 title: "#27: Bot tester: yet another try at creating dm rooms with matrix-bot-sdk"
 date: 2022-11-13
-draft: true
-featureImage: https://assets.gradesta.com/vegan-buddies/img/dalle2-flying-room.png
+draft: false
+featureImage: https://assets.gradesta.com/vegan-buddies/img/dalle2-sisyphus.png
 ---
 
 In the first part I focused on trying to make `create_dm_room` public using the "old" code that was reverted to after [my PR was reverted](https://github.com/matrix-org/matrix-rust-sdk/pull/1061). I got everything building, but the `create_dm_room` method doesn't seem to do anything. Basically, when I look in element I don't see any new rooms and `create_dm_room` is [returning None](https://github.com/matrix-org/matrix-rust-sdk/blob/680ef6b93afcfda87577ec943e67024b746afec9/crates/matrix-sdk/src/encryption/mod.rs#L276).
