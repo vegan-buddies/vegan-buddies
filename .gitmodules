@@ -8,8 +8,8 @@
 	path = lobsters/docker-lobsters
 	url = git@github.com:vegan-buddies/docker-lobsters.git
 [submodule "matrix-rust-sdk"]
-	path = third-party/matrix-rust-sdk/
+	path = third-party/matrix-rust-sdk
 	url = git@github.com:vegan-buddies/matrix-rust-sdk.git
 [submodule "ruma"]
-	path = third-party/ruma/
+	path = third-party/ruma
 	url = git@github.com:matrix-org/ruma.git
