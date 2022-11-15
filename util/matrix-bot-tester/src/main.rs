@@ -96,8 +96,7 @@ async fn main() -> anyhow::Result<()> {
             println!("Creating a dm room with user \"{}\".", &user_id_string);
             let user_id: OwnedUserId = UserId::parse(&user_id_string)?;
             let dm_room = client.create_dm_room(user_id).await?;
-            assert!(!dm_room.is_none());
-            dm_room
+            Some(dm_room)
         }
         RoomToConnect::WaitForMessage => None,
         RoomToConnect::Room(_) => todo!("Implement specifying which room to connect to."),
