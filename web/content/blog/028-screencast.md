@@ -1,8 +1,8 @@
 ---
 title: "#28: Bot tester: yet another try at creating dm rooms with matrix-bot-sdk"
 date: 2022-11-15
-draft: true
-featureImage: https://assets.gradesta.com/vegan-buddies/img/dalle2-sisyphus.png
+draft: false
+featureImage: https://assets.gradesta.com/vegan-buddies/img/dalle2-moss-cycle.png
 ---
 
 I ended last weeks screen cast with a number of options for how to work around the problem with the `create_dm_room` method returning `None`.
