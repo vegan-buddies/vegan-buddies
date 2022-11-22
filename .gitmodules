@@ -12,4 +12,4 @@
 	url = git@github.com:vegan-buddies/matrix-rust-sdk.git
 [submodule "ruma"]
 	path = third-party/ruma
-	url = git@github.com:matrix-org/ruma.git
+	url = git@github.com:vegan-buddies/ruma.git
