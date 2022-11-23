@@ -1,5 +1,5 @@
 ---
-title: "#28: Bot tester: Just dealing with matrix-rust-sdk build version conflicts"
+title: "#29: Bot tester: Just dealing with matrix-rust-sdk build version conflicts"
 date: 2022-11-22
 draft: false
 featureImage: https://assets.gradesta.com/vegan-buddies/img/dalle2-open-doors.png
