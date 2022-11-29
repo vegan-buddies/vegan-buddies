@@ -5,6 +5,12 @@ use futures_channel::mpsc;
 use futures_util::{SinkExt, StreamExt};
 use matrix_bot_tester::args::Args;
 
+use matrix_sdk::{ruma::events::room::member::StrippedRoomMemberEvent,
+};
+use tokio::time::{sleep, Duration};
+
+
+
 use anyhow::anyhow;
 
 use matrix_sdk::{
@@ -27,17 +33,6 @@ pub struct EventHandlerDropGuard {
     client: Client,
 }
 
-#[allow(dead_code)]
-pub(crate) fn event_handler_drop_guard(
-    client: Client,
-    handle: EventHandlerHandle,
-) -> EventHandlerDropGuard {
-    EventHandlerDropGuard {
-        client: client.clone(),
-        handle,
-    }
-}
-
 #[derive(Debug)]
 enum RoomToConnect {
     DM,
@@ -49,6 +44,41 @@ enum RoomToConnect {
     */
     Room(String),
     WaitForMessage,
+}
+
+
+// Taken from https://github.com/matrix-org/matrix-rust-sdk/blob/3d22b6d5a407601d9b77e99ab4d95d726aa47366/examples/autojoin/src/main.rs#L8
+async fn autojoin_rooms_event_handler(
+    room_member: StrippedRoomMemberEvent,
+    client: Client,
+    room: Room,
+) {
+    if room_member.state_key != client.user_id().unwrap() {
+        return;
+    }
+
+    if let Room::Invited(room) = room {
+        tokio::spawn(async move {
+            println!("Autojoining room {}", room.room_id());
+            let mut delay = 2;
+
+            while let Err(err) = room.accept_invitation().await {
+                // retry autojoin due to synapse sending invites, before the
+                // invited user can join for more information see
+                // https://github.com/matrix-org/synapse/issues/4345
+                eprintln!("Failed to join room {} ({err:?}), retrying in {delay}s", room.room_id());
+
+                sleep(Duration::from_secs(delay)).await;
+                delay *= 2;
+
+                if delay > 3600 {
+                    eprintln!("Can't join room {} ({err:?})", room.room_id());
+                    break;
+                }
+            }
+            println!("Successfully joined room {}", room.room_id());
+        });
+    }
 }
 
 #[tokio::main]
@@ -98,7 +128,10 @@ async fn main() -> anyhow::Result<()> {
             let dm_room = client.create_dm_room(user_id).await?;
             Some(dm_room)
         }
-        RoomToConnect::WaitForMessage => None,
+        RoomToConnect::WaitForMessage => {
+            client.add_event_handler(autojoin_rooms_event_handler);
+            None
+        }
         RoomToConnect::Room(_) => todo!("Implement specifying which room to connect to."),
     };
 
@@ -116,7 +149,6 @@ async fn main() -> anyhow::Result<()> {
                 CREATED: 2022-09-23 10:27
                 ESTIMATED_TIME: W4
                  */
-
                 if let Room::Joined(room) = room {
                     match event.content.msgtype {
                         MessageType::Text(TextMessageEventContent { body, .. }) => {
@@ -131,9 +163,12 @@ async fn main() -> anyhow::Result<()> {
         }
     });
 
-    let _guard = event_handler_drop_guard(client, handle);
     let messages = replay.get_array("messages").unwrap();
     println!("{:?}", messages);
+    tokio::spawn(async move {
+        client.sync(SyncSettings::default()).await;
+    });
+
     for message in messages {
         let message_pair = message.into_table().unwrap();
         if let Some(send) = message_pair.get("send") {
@@ -152,6 +187,7 @@ async fn main() -> anyhow::Result<()> {
             let expectation = expectation.clone();
             let expectation: String = expectation.into_string()?;
             let response = loop {
+                println!("Waiting for messages");
                 let (room, response) = StreamExt::next(&mut rx).await.expect("next room message.");
                 let right_room = match room_were_talking_in.as_ref() {
                     Some(rwti) => room.room_id().as_str() == rwti.room_id(),
