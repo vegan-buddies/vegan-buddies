@@ -23,12 +23,6 @@ use matrix_sdk::{
 };
 use url::Url;
 
-#[derive(Debug)]
-pub struct EventHandlerDropGuard {
-    handle: EventHandlerHandle,
-    client: Client,
-}
-
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
     let args = Args::parse();
