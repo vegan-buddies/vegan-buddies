@@ -5,9 +5,7 @@ use futures_channel::mpsc;
 use futures_util::{SinkExt, StreamExt};
 use matrix_bot_tester::args::Args;
 use matrix_bot_tester::autojoin_rooms_event_handler::*;
-
-
-
+use matrix_bot_tester::types::room_to_connect::*;
 
 use anyhow::anyhow;
 
@@ -30,20 +28,6 @@ pub struct EventHandlerDropGuard {
     handle: EventHandlerHandle,
     client: Client,
 }
-
-#[derive(Debug)]
-enum RoomToConnect {
-    DM,
-    /*
-    TASK: Implement connecting to a specific room.
-    TASK_ID: 809e6f8b327944b146161f698ffd50db
-    CREATED: 2022-09-23 11:10
-    ESTIMATED_TIME: W3
-    */
-    Room(String),
-    WaitForMessage,
-}
-
 
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
