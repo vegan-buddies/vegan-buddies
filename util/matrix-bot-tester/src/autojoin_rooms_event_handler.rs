@@ -1,27 +1,20 @@
 
-use clap::Parser;
-use futures_channel::mpsc;
-use futures_util::{SinkExt, StreamExt};
+
+
+
 
 use matrix_sdk::{ruma::events::room::member::StrippedRoomMemberEvent,
 };
 use tokio::time::{sleep, Duration};
 
-use anyhow::anyhow;
+
 
 use matrix_sdk::{
     self,
-    config::SyncSettings,
-    event_handler::EventHandlerHandle,
-    room,
     room::Room,
-    ruma::events::room::message::{
-        MessageType, OriginalSyncRoomMessageEvent, RoomMessageEventContent, TextMessageEventContent,
-    },
-    ruma::{OwnedUserId, TransactionId, UserId},
     Client,
 };
-use url::Url;
+
 
 
 // Taken from https://github.com/matrix-org/matrix-rust-sdk/blob/3d22b6d5a407601d9b77e99ab4d95d726aa47366/examples/autojoin/src/main.rs#L8

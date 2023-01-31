@@ -6,9 +6,8 @@ use futures_util::{SinkExt, StreamExt};
 use matrix_bot_tester::args::Args;
 use matrix_bot_tester::autojoin_rooms_event_handler::*;
 
-use matrix_sdk::{ruma::events::room::member::StrippedRoomMemberEvent,
-};
-use tokio::time::{sleep, Duration};
+
+
 
 use anyhow::anyhow;
 
@@ -104,7 +103,7 @@ async fn main() -> anyhow::Result<()> {
 
     let (tx, mut rx) = mpsc::channel::<(room::Joined, String)>(1);
 
-    let handle = client.add_event_handler({
+    let _handle = client.add_event_handler({
         move |event: OriginalSyncRoomMessageEvent, room: Room| {
             let mut tx = tx.clone();
             async move {
