@@ -1,21 +1,7 @@
-
-
-
-
-
-use matrix_sdk::{ruma::events::room::member::StrippedRoomMemberEvent,
-};
+use matrix_sdk::ruma::events::room::member::StrippedRoomMemberEvent;
 use tokio::time::{sleep, Duration};
 
-
-
-use matrix_sdk::{
-    self,
-    room::Room,
-    Client,
-};
-
-
+use matrix_sdk::{self, room::Room, Client};
 
 // Taken from https://github.com/matrix-org/matrix-rust-sdk/blob/3d22b6d5a407601d9b77e99ab4d95d726aa47366/examples/autojoin/src/main.rs#L8
 pub async fn autojoin_rooms_event_handler(
@@ -36,7 +22,10 @@ pub async fn autojoin_rooms_event_handler(
                 // retry autojoin due to synapse sending invites, before the
                 // invited user can join for more information see
                 // https://github.com/matrix-org/synapse/issues/4345
-                eprintln!("Failed to join room {} ({err:?}), retrying in {delay}s", room.room_id());
+                eprintln!(
+                    "Failed to join room {} ({err:?}), retrying in {delay}s",
+                    room.room_id()
+                );
 
                 sleep(Duration::from_secs(delay)).await;
                 delay *= 2;
