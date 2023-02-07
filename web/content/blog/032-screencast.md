@@ -1,8 +1,8 @@
 ---
 title: "#32: Bot tester: Filtering messages #2"
 date: 2021-02-07
-draft: true
-featureImage: https://assets.gradesta.com/vegan-buddies/img/dalle2-cat-accepts-invite.png
+draft: false
+featureImage: https://assets.gradesta.com/vegan-buddies/img/dalle2-bots-in-frame.png
 ---
 
 Last session was pretty frustrating. I just couldn't figure out how to inspect the [`OriginalSyncRoomMessageEvent`](https://docs.rs/ruma/0.7.4/ruma/events/room/message/type.OriginalSyncRoomMessageEvent.html#) and find out the sender. It turns out I was just a little confused by the docs. The docs for `OriginalSyncRoomMessageEvent` are empty exept showing that it is a type aliase:
