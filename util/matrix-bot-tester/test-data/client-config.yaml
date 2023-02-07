@@ -1,4 +1,4 @@
-user: "mock_client"
+user: "@mock_client:synapse-test.localhost"
 password: "test"
 homeserver_url: "http://localhost:8008"
 user_to_test: "@bot:synapse-test.localhost"

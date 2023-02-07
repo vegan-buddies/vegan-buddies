@@ -44,7 +44,7 @@ async fn main() -> anyhow::Result<()> {
     let homeserver_url_str = settings.get_string("homeserver_url")?;
     let homeserver_url =
         Url::parse(&homeserver_url_str).expect("Couldn't parse the homeserver URL");
-    let client = Client::new(homeserver_url).await?;
+    let client = Client::new(homeserver_url.clone()).await?;
 
     println!(
         "Logging in to homeserver {} as {}.",
@@ -55,6 +55,7 @@ async fn main() -> anyhow::Result<()> {
     println!("Syncing data...");
     client.sync_once(SyncSettings::new()).await?;
     println!("Sync complete.");
+    let me: OwnedUserId = UserId::parse(&user)?;
     let room_to_connect: RoomToConnect = match replay.get_string("room_to_connect").as_deref() {
         Ok("!dm") => RoomToConnect::DM,
         Err(_) => RoomToConnect::DM,
@@ -83,7 +84,9 @@ async fn main() -> anyhow::Result<()> {
 
     let _handle = client.add_event_handler({
         move |event: OriginalSyncRoomMessageEvent, room: Room| {
+
             let mut tx = tx.clone();
+            let me = me.clone();
             async move {
                 /*
                 TASK: Differenciate between rooms when acting as client.
@@ -94,7 +97,9 @@ async fn main() -> anyhow::Result<()> {
                 if let Room::Joined(room) = room {
                     match event.content.msgtype {
                         MessageType::Text(TextMessageEventContent { body, .. }) => {
-                            tx.send((room, body)).await.unwrap();
+                            if event.sender != me {
+                                tx.send((room, body)).await.unwrap();
+                            }
                         }
                         _ => (),
                     }
