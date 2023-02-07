@@ -1,6 +1,6 @@
 ---
 title: "#32: Bot tester: Filtering messages #2"
-date: 2021-02-07
+date: 2023-02-07
 draft: false
 featureImage: https://assets.gradesta.com/vegan-buddies/img/dalle2-bots-in-frame.png
 ---
