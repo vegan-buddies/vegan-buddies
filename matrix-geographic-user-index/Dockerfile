@@ -1,6 +1,5 @@
 FROM debian:bookworm
-RUN apt-get update
-RUN apt-get install -qqy openssl libgtk-3-0 libpq-dev libstdc++-10-dev cmake clang mold curl pkg-config
+RUN apt-get update && apt-get install -qqy openssl libgtk-3-0 libpq-dev libstdc++-10-dev cmake clang mold curl pkg-config libglib2.0-dev
 ENV RUSTUP_HOME=/usr/local/rustup \
     CARGO_HOME=/usr/local/cargo \
     PATH=/usr/local/cargo/bin:$PATH

@@ -1,0 +1,3 @@
+messages:
+  - send: hello 
+    expect: message

@@ -7,11 +7,14 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-matrix_bot_api = "0.5.2"
 diesel = { version = "1.4.8", features = ["postgres"] }
 clap = "3.1.1"
 dotenv = "0.15.0"
 config = "0.9.3"
+matrix-sdk =  { path = "../third-party/matrix-rust-sdk/crates/matrix-sdk/" }
+tokio = { version ="1.19.2", features = ["macros", "io-util", "rt-multi-thread"]}
+anyhow = "1.0"
+url = "2.2.2"
 
 [dev-dependencies]
 tempdir = "0.3.7"
