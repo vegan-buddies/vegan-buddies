@@ -3,9 +3,12 @@ use crate::ageing_cellar::autojoin_rooms_event_handler::autojoin_rooms_event_han
 use tokio::sync::mpsc;
 use tokio::sync::mpsc::{Receiver, Sender};
 use tokio::sync::mpsc::error::SendError;
+use tokio::io::AsyncWriteExt;
 
 use std::process::{Command};
 use std::sync::Arc;
+use std::io::Write;
+use std::path::Path;
 
 use anyhow;
 
@@ -50,7 +53,6 @@ pub async fn run_matrix_addapter(connectionSettings: ConnectionSettings, tx: Sen
         .await?;
 
     let me: OwnedUserId = UserId::parse(&connectionSettings.user)?;
-    client.sync_once(SyncSettings::new()).await?;
 
     client.add_event_handler(autojoin_rooms_event_handler);
 
@@ -87,6 +89,7 @@ pub async fn run_matrix_addapter(connectionSettings: ConnectionSettings, tx: Sen
     });
 
     let client_handler = Arc::clone(&client);
+
     while let Some(message) = rx.recv().await {
         let room = client_handler
             .get_joined_room(&message.room_id)
@@ -94,6 +97,10 @@ pub async fn run_matrix_addapter(connectionSettings: ConnectionSettings, tx: Sen
 
         let content = RoomMessageEventContent::text_plain(&message.message);
         let txn_id = TransactionId::new();
+        // open log file
+        let mut log_file = tokio::fs::File::create(Path::new("matrix1.log")).await.unwrap();
+        log_file.write(b"Sending message to room").await.unwrap();
+
         room.send(content, Some(&txn_id)).await?;
     }
     Ok(())
@@ -120,6 +127,9 @@ mod tests {
             run_matrix_addapter(connectionSettings, tx, rx2).await.unwrap();
         });
 
+        // Sleep for a bit to give the addapter time to connect to the matrix server
+        tokio::time::sleep(std::time::Duration::from_secs(1)).await;
+
         // Run the matrix-bot-tester to act as the client for our bot
         let handle2 = tokio::spawn(async move {
             let mut child = Command::new("../util/matrix-bot-tester/target/debug/matrix-bot-tester")
@@ -134,17 +144,39 @@ mod tests {
             assert!(ecode.success());
         });
 
-        let received_message = rx.recv().await.unwrap();
-        assert_eq!(received_message.message, "hello");
+        let mut received_message: MatrixTextMessage = rx.recv().await.unwrap();
+        loop {
+            let mut log_file1 = std::fs::OpenOptions::new()
+                .write(true)
+                .append(true)
+                .create(true)
+                .open(Path::new("matrix3.log"))
+                .unwrap();
+            log_file1.write(b"Received message from room\n").unwrap();
+            log_file1.write(format!("Got: `{}`\n", received_message.message).as_bytes()).unwrap();
+            // Write time to log file
+            log_file1.write(format!("Time: `{}`\n", std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH).unwrap().as_secs()).as_bytes()).unwrap();
+            if received_message.message == "hello" {
+                break;
+            }
+            let received_message = rx.recv().await.unwrap();
+        }
 
         let message = MatrixTextMessage {
-            user_id: received_message.user_id,
-            room_id: received_message.room_id,
+            user_id: received_message.user_id.clone(),
+            room_id: received_message.room_id.clone(),
             message: "message".to_string(),
         };
 
         tx2.send(message).await.unwrap();
 
+        loop {
+            let received_message_2: MatrixTextMessage = rx.recv().await.unwrap();
+            if received_message_2.room_id == received_message.room_id {
+                assert_eq!(received_message_2.message, "bye");
+                break;
+            }
+        }
         handle.abort();
         handle2.abort();
     }

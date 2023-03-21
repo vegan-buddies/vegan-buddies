@@ -1,5 +1,6 @@
 use matrix_sdk::ruma::events::room::member::StrippedRoomMemberEvent;
 use tokio::time::{sleep, Duration};
+use std::io::Write;
 
 use matrix_sdk::{self, room::Room, Client};
 
