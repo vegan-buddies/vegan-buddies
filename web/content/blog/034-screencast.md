@@ -1,8 +1,8 @@
 ---
 title: "#33: Continuing work on matrix addapter"
 date: 2023-03-21
-draft: true
-featureImage: https://assets.gradesta.com/vegan-buddies/img/dalle2-bots-in-frame.png
+draft: false
+featureImage: https://assets.gradesta.com/vegan-buddies/img/dalle2-new-old-letters.png
 ---
 
 Last time I was working on the matrix addapter which will give us a nice channel based interface for interacting with clients that connect to the bot. Unfortuntley, this is hanging when we run the tests. Got to investigate.
